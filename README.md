@@ -36,7 +36,7 @@
 ## 📸 Interface
 
 <div align="center">
-<img src="./static/image/main-interface.png" alt="Analytics Fish Main Interface" width="100%"/>
+<img width="1918" height="977" alt="Screenshot 2026-05-29 at 3 26 26 PM" src="https://github.com/user-attachments/assets/560e5e11-fde2-4797-b190-29ed4886214e" />
 
 *Analytics Fish user interface: Upload your data, describe your prediction goal, and let AI agents analyze and forecast outcomes*
 </div>
