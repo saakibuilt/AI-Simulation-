@@ -45,33 +45,12 @@
 - Opinion polling and sentiment analysis
 - Business decision forecasting
 
-## 📸 Screenshots
-
-### Main Interface
+## 📸 Interface
 
 <div align="center">
 <img src="./static/image/main-interface.png" alt="Analytics Fish Main Interface" width="100%"/>
 
-*The main interface showing the upload data section and simulation prompt input*
-</div>
-
-### Additional Screenshots
-
-<div align="center">
-<table>
-<tr>
-<td><img src="./static/image/Screenshot/screenshot-1.png" alt="Screenshot 1" width="100%"/></td>
-<td><img src="./static/image/Screenshot/screenshot-2.png" alt="Screenshot 2" width="100%"/></td>
-</tr>
-<tr>
-<td><img src="./static/image/Screenshot/screenshot-3.png" alt="Screenshot 3" width="100%"/></td>
-<td><img src="./static/image/Screenshot/screenshot-4.png" alt="Screenshot 4" width="100%"/></td>
-</tr>
-<tr>
-<td><img src="./static/image/Screenshot/screenshot-5.png" alt="Screenshot 5" width="100%"/></td>
-<td><img src="./static/image/Screenshot/screenshot-6.png" alt="Screenshot 6" width="100%"/></td>
-</tr>
-</table>
+*Analytics Fish user interface: Upload your data, describe your prediction goal, and let AI agents analyze and forecast outcomes*
 </div>
 
 ## 🎬 Demo Videos
