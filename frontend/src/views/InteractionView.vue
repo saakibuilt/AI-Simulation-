@@ -1,9 +1,9 @@
 <template>
   <div class="main-view">
-    <!-- Header -->
+    
     <header class="app-header">
       <div class="header-left">
-        <div class="brand" @click="router.push('/')">MIROFISH</div>
+        <div class="brand" @click="router.push('/')">Analytics Fish</div>
       </div>
       
       <div class="header-center">
@@ -21,8 +21,6 @@
       </div>
 
       <div class="header-right">
-        <LanguageSwitcher />
-        <div class="step-divider"></div>
         <div class="workflow-step">
           <span class="step-num">Step 5/5</span>
           <span class="step-name">{{ $tm('main.stepNames')[4] }}</span>
@@ -35,9 +33,9 @@
       </div>
     </header>
 
-    <!-- Main Content Area -->
+    
     <main class="content-area">
-      <!-- Left Panel: Graph -->
+      
       <div class="panel-wrapper left" :style="leftPanelStyle">
         <GraphPanel 
           :graphData="graphData"
@@ -49,7 +47,7 @@
         />
       </div>
 
-      <!-- Right Panel: Step5 深度互动 -->
+      
       <div class="panel-wrapper right" :style="rightPanelStyle">
         <Step5Interaction
           :reportId="currentReportId"
@@ -72,30 +70,21 @@ import Step5Interaction from '../components/Step5Interaction.vue'
 import { getProject, getGraphData } from '../api/graph'
 import { getSimulation } from '../api/simulation'
 import { getReport } from '../api/report'
-import LanguageSwitcher from '../components/LanguageSwitcher.vue'
 
 const route = useRoute()
 const router = useRouter()
 const { t } = useI18n()
-
-// Props
 const props = defineProps({
   reportId: String
 })
-
-// Layout State - 默认切换到工作台视角
 const viewMode = ref('workbench')
-
-// Data State
 const currentReportId = ref(route.params.reportId)
 const simulationId = ref(null)
 const projectData = ref(null)
 const graphData = ref(null)
 const graphLoading = ref(false)
 const systemLogs = ref([])
-const currentStatus = ref('ready') // ready | processing | completed | error
-
-// --- Computed Layout Styles ---
+const currentStatus = ref('ready')
 const leftPanelStyle = computed(() => {
   if (viewMode.value === 'graph') return { width: '100%', opacity: 1, transform: 'translateX(0)' }
   if (viewMode.value === 'workbench') return { width: '0%', opacity: 0, transform: 'translateX(-20px)' }
@@ -107,8 +96,6 @@ const rightPanelStyle = computed(() => {
   if (viewMode.value === 'graph') return { width: '0%', opacity: 0, transform: 'translateX(20px)' }
   return { width: '50%', opacity: 1, transform: 'translateX(0)' }
 })
-
-// --- Status Computed ---
 const statusClass = computed(() => {
   return currentStatus.value
 })
@@ -119,8 +106,6 @@ const statusText = computed(() => {
   if (currentStatus.value === 'processing') return 'Processing'
   return 'Ready'
 })
-
-// --- Helpers ---
 const addLog = (msg) => {
   const time = new Date().toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' }) + '.' + new Date().getMilliseconds().toString().padStart(3, '0')
   systemLogs.value.push({ time, msg })
@@ -132,8 +117,6 @@ const addLog = (msg) => {
 const updateStatus = (status) => {
   currentStatus.value = status
 }
-
-// --- Layout Methods ---
 const toggleMaximize = (target) => {
   if (viewMode.value === target) {
     viewMode.value = 'split'
@@ -141,32 +124,23 @@ const toggleMaximize = (target) => {
     viewMode.value = target
   }
 }
-
-// --- Data Logic ---
 const loadReportData = async () => {
   try {
     addLog(t('log.loadReportData', { id: currentReportId.value }))
-
-    // 获取 report 信息以获取 simulation_id
     const reportRes = await getReport(currentReportId.value)
     if (reportRes.success && reportRes.data) {
       const reportData = reportRes.data
       simulationId.value = reportData.simulation_id
 
       if (simulationId.value) {
-        // 获取 simulation 信息
         const simRes = await getSimulation(simulationId.value)
         if (simRes.success && simRes.data) {
           const simData = simRes.data
-
-          // 获取 project 信息
           if (simData.project_id) {
             const projRes = await getProject(simData.project_id)
             if (projRes.success && projRes.data) {
               projectData.value = projRes.data
               addLog(t('log.projectLoadSuccess', { id: projRes.data.project_id }))
-
-              // 获取 graph 数据
               if (projRes.data.graph_id) {
                 await loadGraph(projRes.data.graph_id)
               }
@@ -203,8 +177,6 @@ const refreshGraph = () => {
     loadGraph(projectData.value.graph_id)
   }
 }
-
-// Watch route params
 watch(() => route.params.reportId, (newId) => {
   if (newId && newId !== currentReportId.value) {
     currentReportId.value = newId
@@ -225,10 +197,10 @@ onMounted(() => {
   flex-direction: column;
   background: #FFF;
   overflow: hidden;
-  font-family: 'Space Grotesk', 'Noto Sans SC', system-ui, sans-serif;
+  font-family: 'Space Grotesk', system-ui, sans-serif;
 }
 
-/* Header */
+
 .app-header {
   height: 60px;
   border-bottom: 1px solid #EAEAEA;
@@ -334,7 +306,7 @@ onMounted(() => {
 
 @keyframes pulse { 50% { opacity: 0.5; } }
 
-/* Content */
+
 .content-area {
   flex: 1;
   display: flex;

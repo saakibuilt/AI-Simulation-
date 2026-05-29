@@ -1,40 +1,33 @@
 import json
 import os
 import threading
-from flask import request, has_request_context
+from flask import has_request_context
 
 _thread_local = threading.local()
 
 _locales_dir = os.path.join(os.path.dirname(__file__), '..', '..', '..', 'locales')
+_default_locale = 'en'
 
-# Load language registry
-with open(os.path.join(_locales_dir, 'languages.json'), 'r', encoding='utf-8') as f:
-    _languages = json.load(f)
-
-# Load translation files
-_translations = {}
-for filename in os.listdir(_locales_dir):
-    if filename.endswith('.json') and filename != 'languages.json':
-        locale_name = filename[:-5]
-        with open(os.path.join(_locales_dir, filename), 'r', encoding='utf-8') as f:
-            _translations[locale_name] = json.load(f)
+with open(os.path.join(_locales_dir, 'en.json'), 'r', encoding='utf-8') as f:
+    _translations = {
+        _default_locale: json.load(f)
+    }
 
 
 def set_locale(locale: str):
-    """Set locale for current thread. Call at the start of background threads."""
-    _thread_local.locale = locale
+    
+    _thread_local.locale = _default_locale
 
 
 def get_locale() -> str:
     if has_request_context():
-        raw = request.headers.get('Accept-Language', 'zh')
-        return raw if raw in _translations else 'zh'
-    return getattr(_thread_local, 'locale', 'zh')
+        return _default_locale
+    return getattr(_thread_local, 'locale', _default_locale)
 
 
 def t(key: str, **kwargs) -> str:
     locale = get_locale()
-    messages = _translations.get(locale, _translations.get('zh', {}))
+    messages = _translations.get(locale, _translations[_default_locale])
 
     value = messages
     for part in key.split('.'):
@@ -45,7 +38,7 @@ def t(key: str, **kwargs) -> str:
             break
 
     if value is None:
-        value = _translations.get('zh', {})
+        value = _translations[_default_locale]
         for part in key.split('.'):
             if isinstance(value, dict):
                 value = value.get(part)
@@ -64,6 +57,4 @@ def t(key: str, **kwargs) -> str:
 
 
 def get_language_instruction() -> str:
-    locale = get_locale()
-    lang_config = _languages.get(locale, _languages.get('zh', {}))
-    return lang_config.get('llmInstruction', '请使用中文回答。')
+    return 'Please respond in English.'

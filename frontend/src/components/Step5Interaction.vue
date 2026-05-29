@@ -1,11 +1,11 @@
 <template>
   <div class="interaction-panel">
-    <!-- Main Split Layout -->
+    
     <div class="main-split-layout">
-      <!-- LEFT PANEL: Report Style -->
+      
       <div class="left-panel report-style" ref="leftPanel">
         <div v-if="reportOutline" class="report-content-wrapper">
-          <!-- Report Header -->
+          
           <div class="report-header-block">
             <div class="report-meta">
               <span class="report-tag">Prediction Report</span>
@@ -16,7 +16,7 @@
             <div class="header-divider"></div>
           </div>
 
-          <!-- Sections List -->
+          
           <div class="sections-list">
             <div 
               v-for="(section, idx) in reportOutline.sections" 
@@ -47,10 +47,10 @@
               </div>
               
               <div class="section-body" v-show="!collapsedSections.has(idx)">
-                <!-- Completed Content -->
+                
                 <div v-if="generatedSections[idx + 1]" class="generated-content" v-html="renderMarkdown(generatedSections[idx + 1])"></div>
                 
-                <!-- Loading State -->
+                
                 <div v-else-if="currentSectionIndex === idx + 1" class="loading-state">
                   <div class="loading-icon">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -65,7 +65,7 @@
           </div>
         </div>
 
-        <!-- Waiting State -->
+        
         <div v-if="!reportOutline" class="waiting-placeholder">
           <div class="waiting-animation">
             <div class="waiting-ring"></div>
@@ -76,9 +76,9 @@
         </div>
       </div>
 
-      <!-- RIGHT PANEL: Interaction Interface -->
+      
       <div class="right-panel" ref="rightPanel">
-        <!-- Unified Action Bar - Professional Design -->
+        
         <div class="action-bar">
         <div class="action-bar-header">
           <svg class="action-bar-icon" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -146,10 +146,10 @@
           </div>
         </div>
 
-        <!-- Chat Mode -->
+        
         <div v-if="activeTab === 'chat'" class="chat-container">
 
-          <!-- Report Agent Tools Card -->
+          
           <div v-if="chatTarget === 'report_agent'" class="report-agent-tools-card">
             <div class="tools-card-header">
               <div class="tools-card-avatar">R</div>
@@ -216,7 +216,7 @@
             </div>
           </div>
 
-          <!-- Agent Profile Card -->
+          
           <div v-if="chatTarget === 'agent' && selectedAgent" class="agent-profile-card">
             <div class="profile-card-header">
               <div class="profile-card-avatar">{{ (selectedAgent.username || 'A')[0] }}</div>
@@ -241,7 +241,7 @@
             </div>
           </div>
 
-          <!-- Chat Messages -->
+          
           <div class="chat-messages" ref="chatMessages">
             <div v-if="chatHistory.length === 0" class="chat-empty">
               <div class="empty-icon">
@@ -287,7 +287,7 @@
             </div>
           </div>
 
-          <!-- Chat Input -->
+          
           <div class="chat-input-area">
             <textarea 
               v-model="chatInput"
@@ -311,9 +311,9 @@
           </div>
         </div>
 
-        <!-- Survey Mode -->
+        
         <div v-if="activeTab === 'survey'" class="survey-container">
-          <!-- Survey Setup -->
+          
           <div class="survey-setup">
             <div class="setup-section">
               <div class="section-header">
@@ -373,7 +373,7 @@
             </button>
           </div>
 
-          <!-- Survey Results -->
+          
           <div v-if="surveyResults.length > 0" class="survey-results">
             <div class="results-header">
               <span class="results-title">{{ $t('step5.surveyResults') }}</span>
@@ -417,6 +417,7 @@ import { chatWithReport, getReport, getAgentLog } from '../api/report'
 import { interviewAgents, getSimulationProfilesRealtime } from '../api/simulation'
 
 const { t } = useI18n()
+// @ 2026 Developed by Saksham Nirula
 
 const props = defineProps({
   reportId: String,
@@ -424,8 +425,6 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['add-log', 'update-status'])
-
-// State
 const activeTab = ref('chat')
 const chatTarget = ref('report_agent')
 const showAgentDropdown = ref(false)
@@ -433,38 +432,26 @@ const selectedAgent = ref(null)
 const selectedAgentIndex = ref(null)
 const showFullProfile = ref(true)
 const showToolsDetail = ref(true)
-
-// Chat State
 const chatInput = ref('')
 const chatHistory = ref([])
-const chatHistoryCache = ref({}) // 缓存所有对话记录: { 'report_agent': [], 'agent_0': [], 'agent_1': [], ... }
+const chatHistoryCache = ref({})
 const isSending = ref(false)
 const chatMessages = ref(null)
 const chatInputRef = ref(null)
-
-// Survey State
 const selectedAgents = ref(new Set())
 const surveyQuestion = ref('')
 const surveyResults = ref([])
 const isSurveying = ref(false)
-
-// Report Data
 const reportOutline = ref(null)
 const generatedSections = ref({})
 const collapsedSections = ref(new Set())
 const currentSectionIndex = ref(null)
 const profiles = ref([])
-
-// Helper Methods
 const isSectionCompleted = (sectionIndex) => {
   return !!generatedSections.value[sectionIndex]
 }
-
-// Refs
 const leftPanel = ref(null)
 const rightPanel = ref(null)
-
-// Methods
 const addLog = (msg) => {
   emit('add-log', msg)
 }
@@ -486,8 +473,6 @@ const selectChatTarget = (target) => {
     showAgentDropdown.value = false
   }
 }
-
-// 保存当前对话记录到缓存
 const saveChatHistory = () => {
   if (chatHistory.value.length === 0) return
   
@@ -499,7 +484,6 @@ const saveChatHistory = () => {
 }
 
 const selectReportAgentChat = () => {
-  // 保存当前对话记录
   saveChatHistory()
   
   activeTab.value = 'chat'
@@ -507,8 +491,6 @@ const selectReportAgentChat = () => {
   selectedAgent.value = null
   selectedAgentIndex.value = null
   showAgentDropdown.value = false
-  
-  // 恢复 Report Agent 的对话记录
   chatHistory.value = chatHistoryCache.value['report_agent'] || []
 }
 
@@ -528,15 +510,12 @@ const toggleAgentDropdown = () => {
 }
 
 const selectAgent = (agent, idx) => {
-  // 保存当前对话记录
   saveChatHistory()
   
   selectedAgent.value = agent
   selectedAgentIndex.value = idx
   chatTarget.value = 'agent'
   showAgentDropdown.value = false
-  
-  // 恢复该 Agent 的对话记录
   chatHistory.value = chatHistoryCache.value[`agent_${idx}`] || []
   addLog(t('log.selectChatTarget', { name: agent.username }))
 }
@@ -565,8 +544,6 @@ const renderMarkdown = (content) => {
   html = html.replace(/^## (.+)$/gm, '<h3 class="md-h3">$1</h3>')
   html = html.replace(/^# (.+)$/gm, '<h2 class="md-h2">$1</h2>')
   html = html.replace(/^> (.+)$/gm, '<blockquote class="md-quote">$1</blockquote>')
-  
-  // 处理列表 - 支持子列表
   html = html.replace(/^(\s*)- (.+)$/gm, (match, indent, text) => {
     const level = Math.floor(indent.length / 2)
     return `<li class="md-li" data-level="${level}">${text}</li>`
@@ -575,18 +552,11 @@ const renderMarkdown = (content) => {
     const level = Math.floor(indent.length / 2)
     return `<li class="md-oli" data-level="${level}">${text}</li>`
   })
-  
-  // 包装无序列表
   html = html.replace(/(<li class="md-li"[^>]*>.*?<\/li>\s*)+/g, '<ul class="md-ul">$&</ul>')
-  // 包装有序列表
   html = html.replace(/(<li class="md-oli"[^>]*>.*?<\/li>\s*)+/g, '<ol class="md-ol">$&</ol>')
-  
-  // 清理列表项之间的所有空白
   html = html.replace(/<\/li>\s+<li/g, '</li><li')
-  // 清理列表开始标签后的空白
   html = html.replace(/<ul class="md-ul">\s+/g, '<ul class="md-ul">')
   html = html.replace(/<ol class="md-ol">\s+/g, '<ol class="md-ol">')
-  // 清理列表结束标签前的空白
   html = html.replace(/\s+<\/ul>/g, '</ul>')
   html = html.replace(/\s+<\/ol>/g, '</ol>')
   
@@ -602,17 +572,11 @@ const renderMarkdown = (content) => {
   html = html.replace(/(<\/h[2-5]>)<\/p>/g, '$1')
   html = html.replace(/<p class="md-p">(<ul|<ol|<blockquote|<pre|<hr)/g, '$1')
   html = html.replace(/(<\/ul>|<\/ol>|<\/blockquote>|<\/pre>)<\/p>/g, '$1')
-  // 清理块级元素前后的 <br> 标签
   html = html.replace(/<br>\s*(<ul|<ol|<blockquote)/g, '$1')
   html = html.replace(/(<\/ul>|<\/ol>|<\/blockquote>)\s*<br>/g, '$1')
-  // 清理 <p><br> 紧跟块级元素的情况（多余空行导致）
   html = html.replace(/<p class="md-p">(<br>\s*)+(<ul|<ol|<blockquote|<pre|<hr)/g, '$2')
-  // 清理连续的 <br> 标签
   html = html.replace(/(<br>\s*){2,}/g, '<br>')
-  // 清理块级元素后紧跟的段落开始标签前的 <br>
   html = html.replace(/(<\/ol>|<\/ul>|<\/blockquote>)<br>(<p|<div)/g, '$1$2')
-
-  // 修复非连续有序列表的编号：当单项 <ol> 被段落内容隔开时，保持编号递增
   const tokens = html.split(/(<ol class="md-ol">(?:<li class="md-oli"[^>]*>[\s\S]*?<\/li>)+<\/ol>)/g)
   let olCounter = 0
   let inSequence = false
@@ -640,15 +604,11 @@ const renderMarkdown = (content) => {
 
   return html
 }
-
-// Chat Methods
 const sendMessage = async () => {
   if (!chatInput.value.trim() || isSending.value) return
   
   const message = chatInput.value.trim()
   chatInput.value = ''
-  
-  // Add user message
   chatHistory.value.push({
     role: 'user',
     content: message,
@@ -674,18 +634,15 @@ const sendMessage = async () => {
   } finally {
     isSending.value = false
     scrollToBottom()
-    // 自动保存对话记录到缓存
     saveChatHistory()
   }
 }
 
 const sendToReportAgent = async (message) => {
   addLog(t('log.sendToReportAgent', { message: message.substring(0, 50) }))
-  
-  // Build chat history for API
   const historyForApi = chatHistory.value
     .filter(msg => msg.role !== 'user' || msg.content !== message)
-    .slice(-10) // Keep last 10 messages
+    .slice(-10)
     .map(msg => ({
       role: msg.role,
       content: msg.content
@@ -715,16 +672,14 @@ const sendToAgent = async (message) => {
   }
   
   addLog(t('log.sendToAgent', { name: selectedAgent.value.username, message: message.substring(0, 50) }))
-  
-  // Build prompt with chat history
   let prompt = message
   if (chatHistory.value.length > 1) {
     const historyContext = chatHistory.value
       .filter(msg => msg.content !== message)
       .slice(-6)
-      .map(msg => `${msg.role === 'user' ? '提问者' : '你'}：${msg.content}`)
+      .map(msg => `${msg.role === 'user' ? 'User' : 'Assistant'}: ${msg.content}`)
       .join('\n')
-    prompt = `以下是我们之前的对话：\n${historyContext}\n\n现在我的新问题是：${message}`
+    prompt = `Here is our previous conversation:\n${historyContext}\n\nMy new question is: ${message}`
   }
   
   const res = await interviewAgents({
@@ -736,17 +691,12 @@ const sendToAgent = async (message) => {
   })
   
   if (res.success && res.data) {
-    // 正确的数据路径: res.data.result.results 是一个对象字典
-    // 格式: {"twitter_0": {...}, "reddit_0": {...}} 或单平台 {"reddit_0": {...}}
     const resultData = res.data.result || res.data
     const resultsDict = resultData.results || resultData
-    
-    // 将对象字典转换为数组，优先获取 reddit 平台的回复
     let responseContent = null
     const agentId = selectedAgentIndex.value
     
     if (typeof resultsDict === 'object' && !Array.isArray(resultsDict)) {
-      // 优先使用 reddit 平台回复，其次 twitter
       const redditKey = `reddit_${agentId}`
       const twitterKey = `twitter_${agentId}`
       const agentResult = resultsDict[redditKey] || resultsDict[twitterKey] || Object.values(resultsDict)[0]
@@ -754,7 +704,6 @@ const sendToAgent = async (message) => {
         responseContent = agentResult.response || agentResult.answer
       }
     } else if (Array.isArray(resultsDict) && resultsDict.length > 0) {
-      // 兼容数组格式
       responseContent = resultsDict[0].response || resultsDict[0].answer
     }
     
@@ -780,8 +729,6 @@ const scrollToBottom = () => {
     }
   })
 }
-
-// Survey Methods
 const toggleAgentSelection = (idx) => {
   const newSet = new Set(selectedAgents.value)
   if (newSet.has(idx)) {
@@ -820,19 +767,13 @@ const submitSurvey = async () => {
     })
     
     if (res.success && res.data) {
-      // 正确的数据路径: res.data.result.results 是一个对象字典
-      // 格式: {"twitter_0": {...}, "reddit_0": {...}, "twitter_1": {...}, ...}
       const resultData = res.data.result || res.data
       const resultsDict = resultData.results || resultData
-      
-      // 将对象字典转换为数组格式
       const surveyResultsList = []
       
       for (const interview of interviews) {
         const agentIdx = interview.agent_id
         const agent = profiles.value[agentIdx]
-        
-        // 优先使用 reddit 平台回复，其次 twitter
         let responseContent = t('step5.noResponse')
 
         if (typeof resultsDict === 'object' && !Array.isArray(resultsDict)) {
@@ -843,7 +784,6 @@ const submitSurvey = async () => {
             responseContent = agentResult.response || agentResult.answer || t('step5.noResponse')
           }
         } else if (Array.isArray(resultsDict)) {
-          // 兼容数组格式
           const matchedResult = resultsDict.find(r => r.agent_id === agentIdx)
           if (matchedResult) {
             responseContent = matchedResult.response || matchedResult.answer || t('step5.noResponse')
@@ -870,18 +810,13 @@ const submitSurvey = async () => {
     isSurveying.value = false
   }
 }
-
-// Load Report Data
 const loadReportData = async () => {
   if (!props.reportId) return
   
   try {
     addLog(t('log.loadReportData', { id: props.reportId }))
-    
-    // Get report info
     const reportRes = await getReport(props.reportId)
     if (reportRes.success && reportRes.data) {
-      // Load agent logs to get report outline and sections
       await loadAgentLogs()
     }
   } catch (err) {
@@ -927,16 +862,12 @@ const loadProfiles = async () => {
     addLog(t('log.loadProfilesFailed', { error: err.message }))
   }
 }
-
-// Click outside to close dropdown
 const handleClickOutside = (e) => {
   const dropdown = document.querySelector('.agent-dropdown')
   if (dropdown && !dropdown.contains(e.target)) {
     showAgentDropdown.value = false
   }
 }
-
-// Lifecycle
 onMounted(() => {
   addLog(t('log.step5Init'))
   loadReportData()
@@ -967,23 +898,23 @@ watch(() => props.simulationId, (newId) => {
   display: flex;
   flex-direction: column;
   background: #F8F9FA;
-  font-family: 'Inter', 'Noto Sans SC', system-ui, sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   overflow: hidden;
 }
 
-/* Utility Classes */
+
 .mono {
   font-family: 'JetBrains Mono', 'SF Mono', 'Monaco', 'Consolas', monospace;
 }
 
-/* Main Split Layout */
+
 .main-split-layout {
   flex: 1;
   display: flex;
   overflow: hidden;
 }
 
-/* Left Panel - Report Style (与 Step4Report.vue 完全一致) */
+
 .left-panel.report-style {
   width: 45%;
   min-width: 450px;
@@ -1017,7 +948,7 @@ watch(() => props.simulationId, (newId) => {
   background: rgba(0, 0, 0, 0.25);
 }
 
-/* Report Header */
+
 .report-content-wrapper {
   max-width: 800px;
   margin: 0 auto;
@@ -1078,7 +1009,7 @@ watch(() => props.simulationId, (newId) => {
   width: 100%;
 }
 
-/* Sections List */
+
 .sections-list {
   display: flex;
   flex-direction: column;
@@ -1138,7 +1069,7 @@ watch(() => props.simulationId, (newId) => {
   transition: color 0.3s ease;
 }
 
-/* States */
+
 .report-section-item.is-pending .section-number {
   color: #E5E7EB;
 }
@@ -1161,9 +1092,9 @@ watch(() => props.simulationId, (newId) => {
   overflow: hidden;
 }
 
-/* Generated Content */
+
 .generated-content {
-  font-family: 'Inter', 'Noto Sans SC', system-ui, sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   font-size: 14px;
   line-height: 1.8;
   color: #374151;
@@ -1222,7 +1153,7 @@ watch(() => props.simulationId, (newId) => {
   color: #111827;
 }
 
-/* Loading State */
+
 .loading-state {
   display: flex;
   align-items: center;
@@ -1251,14 +1182,14 @@ watch(() => props.simulationId, (newId) => {
   to { transform: rotate(360deg); }
 }
 
-/* Content Styles Override */
+
 .generated-content :deep(.md-h2) {
   font-family: 'Times New Roman', Times, serif;
   font-size: 18px;
   margin-top: 0;
 }
 
-/* Waiting Placeholder */
+
 .waiting-placeholder {
   flex: 1;
   display: flex;
@@ -1302,7 +1233,7 @@ watch(() => props.simulationId, (newId) => {
   font-size: 14px;
 }
 
-/* Right Panel - Interaction */
+
 .right-panel {
   flex: 1;
   display: flex;
@@ -1311,7 +1242,7 @@ watch(() => props.simulationId, (newId) => {
   overflow: hidden;
 }
 
-/* Action Bar - Professional Design */
+
 .action-bar {
   display: flex;
   align-items: center;
@@ -1436,7 +1367,7 @@ watch(() => props.simulationId, (newId) => {
   box-shadow: 0 2px 8px rgba(4, 120, 87, 0.2);
 }
 
-/* Interaction Header */
+
 .interaction-header {
   padding: 16px 24px;
   border-bottom: 1px solid #E5E7EB;
@@ -1478,7 +1409,7 @@ watch(() => props.simulationId, (newId) => {
   flex-shrink: 0;
 }
 
-/* Chat Container */
+
 .chat-container {
   flex: 1;
   display: flex;
@@ -1486,7 +1417,7 @@ watch(() => props.simulationId, (newId) => {
   overflow: hidden;
 }
 
-/* Report Agent Tools Card */
+
 .report-agent-tools-card {
   border-bottom: 1px solid #E5E7EB;
   background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%);
@@ -1638,7 +1569,7 @@ watch(() => props.simulationId, (newId) => {
   overflow: hidden;
 }
 
-/* Agent Profile Card */
+
 .agent-profile-card {
   border-bottom: 1px solid #E5E7EB;
   background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%);
@@ -1758,7 +1689,7 @@ watch(() => props.simulationId, (newId) => {
   color: #4B5563;
 }
 
-/* Target Selector */
+
 .target-selector {
   padding: 16px 24px;
   border-bottom: 1px solid #E5E7EB;
@@ -1803,7 +1734,7 @@ watch(() => props.simulationId, (newId) => {
   border-color: #1F2937;
 }
 
-/* Agent Dropdown */
+
 .agent-dropdown {
   position: relative;
 }
@@ -1908,7 +1839,7 @@ watch(() => props.simulationId, (newId) => {
   text-overflow: ellipsis;
 }
 
-/* Chat Messages */
+
 .chat-messages {
   flex: 1;
   overflow-y: auto;
@@ -2031,7 +1962,7 @@ watch(() => props.simulationId, (newId) => {
   margin-bottom: 0;
 }
 
-/* 修复有序列表编号 - 使用 CSS 计数器让多个 ol 连续编号 */
+
 .message-text {
   counter-reset: list-counter;
 }
@@ -2057,7 +1988,7 @@ watch(() => props.simulationId, (newId) => {
   flex-shrink: 0;
 }
 
-/* 无序列表样式 */
+
 .message-text :deep(.md-ul) {
   padding-left: 20px;
   margin: 8px 0;
@@ -2067,7 +1998,7 @@ watch(() => props.simulationId, (newId) => {
   margin: 4px 0;
 }
 
-/* Typing Indicator */
+
 .typing-indicator {
   display: flex;
   gap: 4px;
@@ -2094,7 +2025,7 @@ watch(() => props.simulationId, (newId) => {
   30% { transform: translateY(-8px); }
 }
 
-/* Chat Input */
+
 .chat-input-area {
   padding: 16px 24px;
   border-top: 1px solid #E5E7EB;
@@ -2149,7 +2080,7 @@ watch(() => props.simulationId, (newId) => {
   cursor: not-allowed;
 }
 
-/* Survey Container */
+
 .survey-container {
   flex: 1;
   display: flex;
@@ -2200,7 +2131,7 @@ watch(() => props.simulationId, (newId) => {
   color: #9CA3AF;
 }
 
-/* Agents Grid */
+
 .agents-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -2334,7 +2265,7 @@ watch(() => props.simulationId, (newId) => {
   color: #E5E7EB;
 }
 
-/* Survey Input */
+
 .survey-input {
   width: 100%;
   padding: 14px 16px;
@@ -2393,7 +2324,7 @@ watch(() => props.simulationId, (newId) => {
   to { transform: rotate(360deg); }
 }
 
-/* Survey Results */
+
 .survey-results {
   flex: 1;
   overflow-y: auto;
@@ -2494,7 +2425,7 @@ watch(() => props.simulationId, (newId) => {
   color: #374151;
 }
 
-/* Markdown Styles */
+
 :deep(.md-p) {
   margin: 0 0 12px 0;
 }
@@ -2536,7 +2467,7 @@ watch(() => props.simulationId, (newId) => {
   margin: 6px 0;
 }
 
-/* 聊天/问卷区域的引用样式 */
+
 .chat-messages :deep(.md-quote),
 .result-answer :deep(.md-quote) {
   margin: 12px 0;
@@ -2577,7 +2508,7 @@ watch(() => props.simulationId, (newId) => {
 </style>
 
 <style>
-/* English locale: smaller report title */
+
 html[lang="en"] .report-header-block .main-title {
   font-size: 28px;
 }
