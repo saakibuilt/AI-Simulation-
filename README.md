@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="./static/image/MiroFish_logo_compressed.jpeg" alt="Analytics Fish Logo" width="75%"/>
+<img src="./static/image/Analytics Fish_logo_compressed.jpeg" alt="Analytics Fish Logo" width="75%"/>
 
 <a href="https://trendshift.io/repositories/16144" target="_blank"><img src="https://trendshift.io/api/badge/repositories/16144" alt="Analytics Fish | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
 
@@ -8,11 +8,11 @@
 
 <a href="https://www.shanda.com/" target="_blank"><img src="./static/image/shanda_logo.png" alt="Analytics Fish | Shanda" height="40"/></a>
 [![Docker](https://img.shields.io/badge/Docker-Build-2496ED?style=flat-square&logo=docker&logoColor=white)](https://hub.docker.com/)
-[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/666ghj/MiroFish)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/666ghj/Analytics Fish)
 
 [![Discord](https://img.shields.io/badge/Discord-Join-5865F2?style=flat-square&logo=discord&logoColor=white)](http://discord.gg/ePf5aPaHnA)
-[![X](https://img.shields.io/badge/X-Follow-000000?style=flat-square&logo=x&logoColor=white)](https://x.com/mirofish_ai)
-[![Instagram](https://img.shields.io/badge/Instagram-Follow-E4405F?style=flat-square&logo=instagram&logoColor=white)](https://www.instagram.com/mirofish_ai/)
+[![X](https://img.shields.io/badge/X-Follow-000000?style=flat-square&logo=x&logoColor=white)](https://x.com/analyticsfish_ai)
+[![Instagram](https://img.shields.io/badge/Instagram-Follow-E4405F?style=flat-square&logo=instagram&logoColor=white)](https://www.instagram.com/analyticsfish_ai/)
 
 </div>
 
@@ -199,7 +199,7 @@ Reads `.env` from root directory by default, maps ports `3000 (frontend) / 5001 
 
 &nbsp;
 
-The Analytics Fish team is recruiting full-time/internship positions. If you're interested in multi-agent simulation and LLM applications, feel free to send your resume to: **mirofish@shanda.com**
+The Analytics Fish team is recruiting full-time/internship positions. If you're interested in multi-agent simulation and LLM applications, feel free to send your resume to: **analyticsfish@shanda.com**
 
 ## 📄 Acknowledgments
 
@@ -209,10 +209,10 @@ Analytics Fish's simulation engine is powered by **OASIS (Open Agent Social Inte
 
 ## 📈 Project Statistics
 
-<a href="https://www.star-history.com/#666ghj/MiroFish&type=date&legend=top-left">
+<a href="https://www.star-history.com/#666ghj/Analytics Fish&type=date&legend=top-left">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=666ghj/MiroFish&type=date&theme=dark&legend=top-left" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=666ghj/MiroFish&type=date&legend=top-left" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=666ghj/MiroFish&type=date&legend=top-left" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=666ghj/Analytics Fish&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=666ghj/Analytics Fish&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=666ghj/Analytics Fish&type=date&legend=top-left" />
  </picture>
 </a>

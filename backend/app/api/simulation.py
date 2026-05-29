@@ -14,7 +14,7 @@ from ..utils.logger import get_logger
 from ..utils.locale import t, get_locale, set_locale
 from ..models.project import ProjectManager
 
-logger = get_logger('mirofish.api.simulation')
+logger = get_logger('analyticsfish.api.simulation')
 # @ 2026 Developed by Saksham Nirula
 
 INTERVIEW_PROMPT_PREFIX = "Based on your persona, all past memories, and prior actions, reply directly in plain text without calling any tools: "

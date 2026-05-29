@@ -14,7 +14,7 @@ from ..models.task import TaskManager, TaskStatus
 from ..utils.logger import get_logger
 from ..utils.locale import t, get_locale, set_locale
 
-logger = get_logger('mirofish.api.report')
+logger = get_logger('analyticsfish.api.report')
 
 
 

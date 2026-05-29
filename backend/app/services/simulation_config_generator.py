@@ -13,7 +13,7 @@ from ..utils.logger import get_logger
 from ..utils.locale import get_language_instruction, t
 from .zep_entity_reader import EntityNode, ZepEntityReader
 
-logger = get_logger('mirofish.simulation_config')
+logger = get_logger('analyticsfish.simulation_config')
 
 
 CHINA_TIMEZONE_CONFIG = {

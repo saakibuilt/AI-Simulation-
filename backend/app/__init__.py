@@ -25,7 +25,7 @@ def create_app(config_class=Config):
         app.json.ensure_ascii = False
     
     
-    logger = setup_logger('mirofish')
+    logger = setup_logger('analyticsfish')
     
     
     is_reloader_process = os.environ.get('WERKZEUG_RUN_MAIN') == 'true'
@@ -49,14 +49,14 @@ def create_app(config_class=Config):
     
     @app.before_request
     def log_request():
-        logger = get_logger('mirofish.request')
+        logger = get_logger('analyticsfish.request')
         logger.debug(f"Request: {request.method} {request.path}")
         if request.content_type and 'json' in request.content_type:
             logger.debug(f"Request body: {request.get_json(silent=True)}")
     
     @app.after_request
     def log_response(response):
-        logger = get_logger('mirofish.request')
+        logger = get_logger('analyticsfish.request')
         logger.debug(f"Response: {response.status_code}")
         return response
     

@@ -17,7 +17,7 @@ from ..models.task import TaskManager, TaskStatus
 from ..models.project import ProjectManager, ProjectStatus
 
 
-logger = get_logger('mirofish.api')
+logger = get_logger('analyticsfish.api')
 # @ 2026 Developed by Saksham Nirula
 
 def allowed_file(filename: str) -> bool:
@@ -321,7 +321,7 @@ def build_graph():
         
         def build_task():
             set_locale(current_locale)
-            build_logger = get_logger('mirofish.build')
+            build_logger = get_logger('analyticsfish.build')
             try:
                 build_logger.info(f"[{task_id}] Starting graph build...")
                 task_manager.update_task(

@@ -21,7 +21,7 @@ from .zep_tools import (
     InterviewResult
 )
 
-logger = get_logger('mirofish.report_agent')
+logger = get_logger('analyticsfish.report_agent')
 # @ 2026 Developed by Saksham Nirula
 
 class ReportLogger:
@@ -311,8 +311,8 @@ class ReportConsoleLogger:
         
         
         loggers_to_attach = [
-            'mirofish.report_agent',
-            'mirofish.zep_tools',
+            'analyticsfish.report_agent',
+            'analyticsfish.zep_tools',
         ]
         
         for logger_name in loggers_to_attach:
@@ -327,8 +327,8 @@ class ReportConsoleLogger:
         
         if self._file_handler:
             loggers_to_detach = [
-                'mirofish.report_agent',
-                'mirofish.zep_tools',
+                'analyticsfish.report_agent',
+                'analyticsfish.zep_tools',
             ]
             
             for logger_name in loggers_to_detach:

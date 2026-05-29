@@ -15,7 +15,7 @@ from ..config import Config
 from ..utils.logger import get_logger
 from ..utils.locale import get_locale, set_locale
 
-logger = get_logger('mirofish.zep_graph_memory_updater')
+logger = get_logger('analyticsfish.zep_graph_memory_updater')
 
 
 @dataclass

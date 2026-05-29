@@ -1,9 +1,9 @@
 services:
-  mirofish:
-    image: ghcr.io/666ghj/mirofish:latest
+  analyticsfish:
+    image: ghcr.io/666ghj/analyticsfish:latest
     # Mirror image for faster pulling if needed
-    # image: ghcr.nju.edu.cn/666ghj/mirofish:latest
-    container_name: mirofish
+    # image: ghcr.nju.edu.cn/666ghj/analyticsfish:latest
+    container_name: analyticsfish
     env_file:
       - .env
     ports:

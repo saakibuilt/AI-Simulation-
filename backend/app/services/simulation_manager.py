@@ -15,7 +15,7 @@ from .oasis_profile_generator import OasisProfileGenerator, OasisAgentProfile
 from .simulation_config_generator import SimulationConfigGenerator, SimulationParameters
 from ..utils.locale import t
 
-logger = get_logger('mirofish.simulation')
+logger = get_logger('analyticsfish.simulation')
 
 
 class SimulationStatus(str, Enum):
